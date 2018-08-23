@@ -1,0 +1,15 @@
+{
+  "name": "pleungmicrosvc",
+  "version": "1.0.0",
+  "description": "Micro services",
+  "author": "Peter Leung <pleungms@hotmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "server": "*",
+    "mysql": "*"
+  }
+}
