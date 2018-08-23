@@ -15,7 +15,7 @@ spec:
         app: pleungmicrosvc
     spec:
       containers:
-      - name: pleungtestapp
+      - name: pleungmicrosvc
         image: pleungcon.azurecr.io/pleungms/pleungmicrosvc:$BUILD_ID
         ports:
         - containerPort: 80

@@ -8,8 +8,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "*",
-    "server": "*",
-    "mysql": "*"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql": "*",
+    "server": "*"
   }
 }

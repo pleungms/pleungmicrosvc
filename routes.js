@@ -22,9 +22,9 @@ var appRouter = function(app) {
     app.get("/api/getprofile", function(req, res) {
 
 		// Enable cross server
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        //res.header('Access-Control-Allow-Origin', '*');
+        //res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        //res.header('Access-Control-Allow-Headers', 'Content-Type');
 
         res.send('Hello World! [from pleungmicrosvc]!');
     });
