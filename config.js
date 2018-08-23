@@ -13,7 +13,7 @@ dev: {
     //server details
     server: {
         host: '127.0.0.1',
-        port: '30000'
+        port: '80'
     },
     db: {
 		host            : 'localhost',
@@ -34,7 +34,7 @@ prd: {
     //server details
     server: {
         host: '127.0.0.1',
-        port: '30000'
+        port: '80'
     },
     db: {
 		host            : 'localhost',

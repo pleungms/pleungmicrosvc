@@ -26,7 +26,7 @@ var appRouter = function(app) {
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-        send('Hello World! [from pleungmicrosvc]!');
+        res.send('Hello World! [from pleungmicrosvc]!');
     });
 
     // RESTful post: http://xxx:nnn
