@@ -13,13 +13,13 @@ dev: {
     //server details
     server: {
         host: '127.0.0.1',
-        port: '80'
+        port: '8080'
     },
     db: {
-		host            : 'localhost',
-		user            : 'root',
-		password        : 'password',
-		database        : 'world',
+		host            : 'pleungms.database.windows.net',
+		user            : 'pleungadmin',
+		password        : '!P@ssw0rd',
+		database        : 'PLEUNGDB',
 		debug           : false,
         connectionLimit : 3
 	},

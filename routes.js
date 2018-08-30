@@ -13,10 +13,34 @@
 // obtain the environment the application will run in
 var env = process.env.NODE_ENV || 'dev';
 var config = require('./config')[env];
-//var mysql = require('mysql');
+
+// variables for connection to SQL Server
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
 
 // process the RESTful call
 var appRouter = function(app) {
+
+    // db configuration parameters
+    var dbconfig = {
+        userName: config.db.user,
+        password: config.db.password,
+        server:   config.db.host,
+        options: {encrypt: true, database: config.db.database, rowCollectionOnDone: true}
+    };
+
+        var dbconn = new Connection(dbconfig);
+
+        dbconn.on('connect', function(err) {
+            if (err) {
+               // error
+               console.log(err);
+            } else {
+                // connected
+                console.log('Connected');
+            }
+		}); // dbconn.on
 
     // RESTful get: http://xxx:nnn
     app.get("/api/getprofile", function(req, res) {
@@ -26,12 +50,43 @@ var appRouter = function(app) {
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-        res.send('Hello World! [from pleungmicrosvc] v2!');
-    });
+		//dbreq = new Request("select pro_id, pro_name, pro_email from tbl_pro_profiles", function(err, rowCount, rows) {
+		//	if(err){
+		//		// error
+		//		console.log(err);
+		//	} else {
+		//		console.log(rowCount);
+		//		console.log(rows);
+		//		res.send(rows);
+		//	}
+		//}); //dbreq
+
+		//dbconn.execSql(dbreq);
+
+
+        dbconn.execSql(new Request("select pro_id, pro_name, pro_email from tbl_pro_profiles", function(err, rowCount, rows) {
+            if(err) {
+                throw err;
+            }
+        })
+        .on('doneInProc', function(rowCount, more, rows){
+                console.log(rows); // not empty
+                res.send(rows);
+            })
+        );
+
+        //dbconn.on('error', function(err) {
+        //    // on error
+        //    res.statusCode = 404;
+        //    res.end();
+        //    return;
+        //}); // connection.on
+
+        //res.send('Hello World! [from pleungmicrosvc] v2!');
+        //});
 
     // RESTful post: http://xxx:nnn
-    app.post("/api/addprofile", function(req, res) {
-        // Do something later
+    // Do something later
     });
 };
 module.exports = appRouter;
