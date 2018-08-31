@@ -30,40 +30,31 @@ var appRouter = function(app) {
         options: {encrypt: true, database: config.db.database, rowCollectionOnDone: true}
     };
 
-        var dbconn = new Connection(dbconfig);
+    // connect to db
+    // note: this should be enhanced to use a connection pool
+    var dbconn = new Connection(dbconfig);
+    dbconn.on('connect', function(err) {
+        if (err) {
+            // error
+            console.log(err);
+        } else {
+            // connected
+            console.log('Connected');
+        }
+    }); // dbconn.on
 
-        dbconn.on('connect', function(err) {
-            if (err) {
-               // error
-               console.log(err);
-            } else {
-                // connected
-                console.log('Connected');
-            }
-		}); // dbconn.on
-
-    // RESTful get: http://xxx:nnn
-    app.get("/api/getprofile", function(req, res) {
+    ///////////////////////////////////////////////////////////////////////////
+    // RESTful get: /api/listprofiles
+    // Description:
+    //  Returns a list of all profiles in the database
+    app.get("/api/listprofiles", function(req, res) {
 
 		// Enable cross server
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-		//dbreq = new Request("select pro_id, pro_name, pro_email from tbl_pro_profiles", function(err, rowCount, rows) {
-		//	if(err){
-		//		// error
-		//		console.log(err);
-		//	} else {
-		//		console.log(rowCount);
-		//		console.log(rows);
-		//		res.send(rows);
-		//	}
-		//}); //dbreq
-
-		//dbconn.execSql(dbreq);
-
-
+        // Execute the SQL
         dbconn.execSql(new Request("select pro_id, pro_name, pro_email from tbl_pro_profiles", function(err, rowCount, rows) {
             if(err) {
                 throw err;
@@ -73,20 +64,8 @@ var appRouter = function(app) {
                 console.log(rows); // not empty
                 res.send(rows);
             })
-        );
+        ); // execSql
 
-        //dbconn.on('error', function(err) {
-        //    // on error
-        //    res.statusCode = 404;
-        //    res.end();
-        //    return;
-        //}); // connection.on
-
-        //res.send('Hello World! [from pleungmicrosvc] v2!');
-        //});
-
-    // RESTful post: http://xxx:nnn
-    // Do something later
-    });
+    }); // listprofiles ///////////////////////////////////////////////////////
 };
 module.exports = appRouter;
