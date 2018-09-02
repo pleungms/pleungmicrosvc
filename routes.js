@@ -67,5 +67,37 @@ var appRouter = function(app) {
         ); // execSql
 
     }); // listprofiles ///////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    // RESTful get: /api/getprofile?pro_id=<val>
+    // Description:
+    //  Returns the profile record with the specific value
+    app.get("/api/getprofile", function(req, res) {
+        
+        // Enable cross server
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        
+        // Get the parameter
+        // NOTE: Need to error checking for parameter not passed in
+        var proid=req.query.pro_id;
+        
+        // Set the statement
+        var sqlStmt = "select pro_id, pro_name, pro_email from tbl_pro_profiles where pro_id = " + proid;
+        
+        // Attempt to get the record
+        dbconn.execSql(new Request(sqlStmt, function(err, rowCount, rows) {
+            if(err) {
+                throw err;
+            }
+        })
+        .on('doneInProc', function(rowCount, more, rows){
+                console.log(rows); // not empty
+                res.send(rows);
+            })
+        ); // execSql      
+        
+    }); // getprofile /////////////////////////////////////////////////////////
 };
 module.exports = appRouter;
