@@ -33,15 +33,15 @@ var appRouter = function(app) {
     // connect to db
     // note: this should be enhanced to use a connection pool
     var dbconn = new Connection(dbconfig);
-    dbconn.on('connect', function(err) {
-        if (err) {
-            // error
-            console.log(err);
-        } else {
-            // connected
-            console.log('Connected');
-        }
-    }); // dbconn.on
+    //dbconn.on('connect', function(err) {
+    //    if (err) {
+    //        // error
+    //        console.log(err);
+    //    } else {
+    //        // connected
+    //        console.log('Connected');
+    //    }
+    //}); // dbconn.on
 
     ///////////////////////////////////////////////////////////////////////////
     // RESTful get: /api/listprofiles
@@ -54,6 +54,17 @@ var appRouter = function(app) {
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
 
+        //var dbconn = new Connection(dbconfig);
+        dbconn.on('connect', function(err) {
+            if (err) {
+                // error
+                console.log(err);
+            } else {
+                // connected
+                console.log('Connected');
+            }
+        }); // dbconn.on        
+        
         // Execute the SQL
         dbconn.execSql(new Request("select pro_id, pro_name, pro_email from tbl_pro_profiles", function(err, rowCount, rows) {
             if(err) {
@@ -78,6 +89,17 @@ var appRouter = function(app) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+        //var dbconn = new Connection(dbconfig);
+        dbconn.on('connect', function(err) {
+            if (err) {
+                // error
+                console.log(err);
+            } else {
+                // connected
+                console.log('Connected');
+            }
+        }); // dbconn.on  
         
         // Get the parameter
         // NOTE: Need to error checking for parameter not passed in
@@ -89,7 +111,9 @@ var appRouter = function(app) {
         // Attempt to get the record
         dbconn.execSql(new Request(sqlStmt, function(err, rowCount, rows) {
             if(err) {
-                throw err;
+                console.log(err);
+                res.send(null);
+                //throw err;
             }
         })
         .on('doneInProc', function(rowCount, more, rows){
