@@ -68,7 +68,9 @@ var appRouter = function(app) {
         // Execute the SQL
         dbconn.execSql(new Request("select pro_id, pro_name, pro_email from tbl_pro_profiles", function(err, rowCount, rows) {
             if(err) {
-                throw err;
+                console.log(err);
+                res.send(null);
+                //throw err;
             }
         })
         .on('doneInProc', function(rowCount, more, rows){
