@@ -7,6 +7,7 @@
 //  Author         Date       Description
 //  -------------- ---------- -------------------------------------------------
 //  Peter Leung    23/08/2018 Initial version
+//  Peter Leung    09/09/2018 Updated subscription deployment
 // ############################################################################
 
 // Using the express package to start the application server
