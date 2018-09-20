@@ -8,7 +8,6 @@
 //  -------------- ---------- -------------------------------------------------
 //  Peter Leung    23/08/2018 Initial version
 //  Peter Leung    09/09/2018 Updated subscription deployment
-//  Peter Leung    19/09/2018 Updated log message to get port number from app
 // ############################################################################
 
 // Using the express package to start the application server
@@ -29,7 +28,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var routes = require('./routes.js')(app);
 
 // Listen on port for http requests
-app.listen(config.server.port, function () {
+// For local client hardcoded to 9080
+app.listen(9080, function () {
   console.log('pleungmicrosvc node app listen on ' + this.address().port);
 });
 
