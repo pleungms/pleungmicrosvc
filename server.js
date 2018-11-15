@@ -9,6 +9,7 @@
 //  Peter Leung    23/08/2018 Initial version
 //  Peter Leung    09/09/2018 Updated subscription deployment
 //  Peter Leung    19/09/2018 Updated log message to get port number from app
+//  Peter Leung    15/11/2918 Touch
 // ############################################################################
 
 // Using the express package to start the application server
