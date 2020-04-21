@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: pleungmicrosvc
-        image: pleungcon.azurecr.io/pleungms/pleungmicrosvc:$BUILD_ID
+        image: peleunacr.azurecr.io/pleungmicrosvc:$BUILD_ID
         ports:
         - containerPort: 80
 ---
